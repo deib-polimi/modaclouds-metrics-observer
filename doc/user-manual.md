@@ -35,7 +35,7 @@ Dependency:
 <dependencies>
 	<dependency>
 		<groupId>it.polimi.modaclouds.monitoring</groupId>
-		<artifactId>monitoring-metrics-observer</artifactId>
+		<artifactId>metrics-observer</artifactId>
 		<version>VERSION</version>
 	</dependency>
 </dependencies>
