@@ -57,7 +57,7 @@ public abstract class MetricsObServer extends Component {
 			Router router = new Router(getContext());
 			router.setDefaultMatchingMode(Template.MODE_EQUALS);
 
-			router.attach("/results", ResultsHandler.class);
+			router.attach("v1/results", ResultsHandler.class);
 
 			return router;
 		}
