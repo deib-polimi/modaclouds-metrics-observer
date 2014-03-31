@@ -1,4 +1,4 @@
-[Documentation table of contents](../../TOC.md) / API Reference
+[Documentation table of contents](TOC.md) / API Reference
 
 # API Reference
 

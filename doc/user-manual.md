@@ -1,4 +1,4 @@
-[Documentation table of contents](../../TOC.md) / User Manual
+[Documentation table of contents](TOC.md) / User Manual
 
 # User Manual
 
