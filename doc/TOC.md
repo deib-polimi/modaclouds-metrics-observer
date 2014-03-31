@@ -1,5 +1,6 @@
-# MODAClouds Object Store API documentation
+Documentation table of contents
+
+# MODAClouds Metrics ObServer documentation
 
 * [User Manual](user-manual.md)
-* [Developer Manual](dev-manual.md)
 * [API Reference](api.md)

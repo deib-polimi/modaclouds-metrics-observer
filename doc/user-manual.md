@@ -1,4 +1,4 @@
-[Documentation table of contents](TOC.md)
+[Documentation table of contents](../../TOC.md) / User Manual
 
 # User Manual
 
@@ -67,7 +67,7 @@ public class ExampleObServer extends MetricsObServer {
 		String value;
 		for (Map<String, Variable> m : bindings) {
 			for (String s: m.keySet()) {
-				m.get(s);
+				System.out.println("name: " + s + ", value: " + m.get(s));
 			}
 		}
 	}
