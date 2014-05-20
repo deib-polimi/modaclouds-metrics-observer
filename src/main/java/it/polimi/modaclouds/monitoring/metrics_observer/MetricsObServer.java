@@ -51,7 +51,7 @@ public abstract class MetricsObServer extends Component {
 	
 	public abstract void getData(List<String> varNames, List<Map<String, Variable>> bindings);
 	
-	private class ObServerApp extends Application {
+	public class ObServerApp extends Application {
 		@Override
 		public Restlet createInboundRoot() {
 			Router router = new Router(getContext());
@@ -63,7 +63,7 @@ public abstract class MetricsObServer extends Component {
 		}
 	}
 	
-	private class ResultsHandler extends ServerResource {
+	public class ResultsHandler extends ServerResource {
 
 		private Logger logger = LoggerFactory.getLogger(ResultsHandler.class
 				.getName());
