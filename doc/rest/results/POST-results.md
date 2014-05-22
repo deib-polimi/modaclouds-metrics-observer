@@ -38,7 +38,7 @@ None
 ## Example
 **Request**
 
-	POST v1/results
+	POST /v1/results
 	
 ``` json
 {

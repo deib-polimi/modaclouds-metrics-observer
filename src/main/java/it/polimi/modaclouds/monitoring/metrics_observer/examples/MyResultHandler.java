@@ -16,20 +16,30 @@
  */
 package it.polimi.modaclouds.monitoring.metrics_observer.examples;
 
-import it.polimi.modaclouds.monitoring.metrics_observer.MetricsObServer;
+import java.util.List;
+import java.util.Map;
 
-public class ExampleObServer extends MetricsObServer {
+import it.polimi.modaclouds.monitoring.metrics_observer.ResultsHandler;
+import it.polimi.modaclouds.monitoring.metrics_observer.model.Variable;
 
-	public ExampleObServer(int listeningPort) {
-		super(listeningPort, MyResultHandler.class);
-	}
-	
-	public static void main(String[] args) {
-		ExampleObServer observer = new ExampleObServer(8123);
-		try {
-			observer.start();
-		} catch (Exception e) {
-			e.printStackTrace();
+public class MyResultHandler extends ResultsHandler {
+
+	@Override
+	public void getData(List<String> varNames,
+			List<Map<String, Variable>> bindings) {
+		String value;
+		for (Map<String, Variable> m : bindings) {
+			String metricPath = "";
+			int last = varNames.size();
+			for (int i = 0; i < last; i++) {
+				Variable var = m.get(varNames.get(i));
+				if (var != null) {
+					value = var.getValue();
+					metricPath += value.substring(value.indexOf('#') + 1)
+							+ (i == last - 1 ? "" : " ");
+				}
+			}
+			System.out.println(metricPath);
 		}
 	}
 
