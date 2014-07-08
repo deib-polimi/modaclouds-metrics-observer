@@ -43,34 +43,45 @@ Dependency:
 
 ## Usage
 
-* Create a metrics observer by extending class MetricsObServer.
-* Override method `getData` so to handle incoming data.
+* Create a result handler extending the ResultHandler class, and overriding method `getData` so to handle incoming data.
+* Create a metrics obServer extending the MetricsObServer class and passing to the super constructor the listening port and your result handler class.
 
 ## Code Samples
 
-Observer class example:
+Result handler class example:
+
 ```java
-import it.polimi.modaclouds.monitoring.metrics_observer.MetricsObServer;
-import it.polimi.modaclouds.monitoring.metrics_observer.model.Variable;
-import java.util.List;
-import java.util.Map;
-
-public class ExampleObServer extends MetricsObServer {
-
-	public ExampleObServer(int listeningPort) {
-		super(listeningPort);
-	}
+public class MyResultHandler extends ResultsHandler {
 
 	@Override
 	public void getData(List<String> varNames,
 			List<Map<String, Variable>> bindings) {
 		String value;
 		for (Map<String, Variable> m : bindings) {
-			for (String s: m.keySet()) {
-				System.out.println("name: " + s + ", value: " + m.get(s));
+			String datum = "";
+			int last = varNames.size();
+			for (int i = 0; i < last; i++) {
+				Variable var = m.get(varNames.get(i));
+				if (var != null) {
+					value = var.getValue();
+					datum += value + (i == last - 1 ? "" : " ");
+				}
 			}
+			System.out.println(datum);
 		}
 	}
+
+}
+```
+
+Observer class example:
+```java
+public class ExampleObServer extends MetricsObServer {
+
+	public ExampleObServer(int listeningPort) {
+		super(listeningPort, MyResultHandler.class);
+	}
+	
 }
 ```
 

@@ -29,17 +29,16 @@ public class MyResultHandler extends ResultsHandler {
 			List<Map<String, Variable>> bindings) {
 		String value;
 		for (Map<String, Variable> m : bindings) {
-			String metricPath = "";
+			String datum = "";
 			int last = varNames.size();
 			for (int i = 0; i < last; i++) {
 				Variable var = m.get(varNames.get(i));
 				if (var != null) {
 					value = var.getValue();
-					metricPath += value.substring(value.indexOf('#') + 1)
-							+ (i == last - 1 ? "" : " ");
+					datum += value + (i == last - 1 ? "" : " ");
 				}
 			}
-			System.out.println(metricPath);
+			System.out.println(datum);
 		}
 	}
 
