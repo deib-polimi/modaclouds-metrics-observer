@@ -35,7 +35,7 @@ public class MyResultHandler extends ResultsHandler {
 				Variable var = m.get(varNames.get(i));
 				if (var != null) {
 					value = var.getValue();
-					datum += value + (i == last - 1 ? "" : " ");
+					datum += value + (i == last - 1 ? "" : ",");
 				}
 			}
 			System.out.println(datum);

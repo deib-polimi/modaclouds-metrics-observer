@@ -104,7 +104,7 @@
 					<archive>
 						<manifest>
 							<mainClass>
-								it.polimi.modaclouds.monitoring.metrics_observer.examples.ExampleObServer
+								it.polimi.modaclouds.monitoring.metrics_observer.examples.CVSObServer
 							</mainClass>
 						</manifest>
 					</archive>

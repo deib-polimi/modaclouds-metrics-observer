@@ -18,14 +18,16 @@ package it.polimi.modaclouds.monitoring.metrics_observer.examples;
 
 import it.polimi.modaclouds.monitoring.metrics_observer.MetricsObServer;
 
-public class ExampleObServer extends MetricsObServer {
+public class CVSObServer extends MetricsObServer {
 
-	public ExampleObServer(int listeningPort) {
+	public CVSObServer(int listeningPort) {
 		super(listeningPort, MyResultHandler.class);
 	}
 	
 	public static void main(String[] args) {
-		ExampleObServer observer = new ExampleObServer(8123);
+		int port = (args.length > 0) ? Integer.parseInt(args[0]) : 8123;
+		System.out.println("Listening on port " + port);
+		CVSObServer observer = new CVSObServer(port);
 		try {
 			observer.start();
 		} catch (Exception e) {
