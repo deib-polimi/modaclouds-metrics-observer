@@ -18,7 +18,6 @@ package it.polimi.modaclouds.monitoring.metrics_observer;
 
 import java.io.StringReader;
 import java.lang.reflect.Type;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
