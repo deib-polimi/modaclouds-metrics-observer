@@ -34,6 +34,7 @@ import org.slf4j.LoggerFactory;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
+@Deprecated
 public abstract class SelectHandler extends ServerResource {
 
 	private Logger logger = LoggerFactory.getLogger(SelectHandler.class
