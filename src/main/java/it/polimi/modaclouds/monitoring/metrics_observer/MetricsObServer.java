@@ -25,9 +25,9 @@ import org.restlet.routing.Template;
 
 public abstract class MetricsObServer extends Component {
 
-	private Class<? extends ResultsHandler> resultHandler;
+	private Class<? extends ConstructHandler> resultHandler;
 
-	public MetricsObServer(int listeningPort, Class<? extends ResultsHandler> resultHandler) {
+	public MetricsObServer(int listeningPort, Class<? extends ConstructHandler> resultHandler) {
 		super();
 		getServers().add(Protocol.HTTP, listeningPort);
 		getClients().add(Protocol.FILE);

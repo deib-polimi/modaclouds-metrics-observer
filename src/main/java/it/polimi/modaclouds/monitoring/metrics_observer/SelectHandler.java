@@ -34,9 +34,9 @@ import org.slf4j.LoggerFactory;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
-public abstract class ResultsHandler extends ServerResource {
+public abstract class SelectHandler extends ServerResource {
 
-	private Logger logger = LoggerFactory.getLogger(ResultsHandler.class
+	private Logger logger = LoggerFactory.getLogger(SelectHandler.class
 			.getName());
 	
 	public abstract void getData(List<String> varNames, List<Map<String, Variable>> bindings);
