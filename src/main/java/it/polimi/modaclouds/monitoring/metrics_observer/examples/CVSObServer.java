@@ -25,7 +25,7 @@ public class CVSObServer extends MetricsObServer {
 	}
 	
 	public static void main(String[] args) {
-		int port = (args.length > 0) ? Integer.parseInt(args[0]) : 8123;
+		int port = (args.length > 0) ? Integer.parseInt(args[0]) : 8000;
 		System.out.println("Listening on port " + port);
 		CVSObServer observer = new CVSObServer(port);
 		try {
