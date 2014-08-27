@@ -19,9 +19,13 @@ package it.polimi.modaclouds.monitoring.metrics_observer.examples;
 import it.polimi.modaclouds.monitoring.metrics_observer.ConstructHandler;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 
 public class CVSResultHandler extends ConstructHandler {
 
@@ -49,11 +53,15 @@ public class CVSResultHandler extends ConstructHandler {
 							.get(datum)
 							.get("http://www.modaclouds.eu/rdfs/1.0/monitoringdata#resourceId"))
 					.get(0).get("value");
-			System.out.println(resourceId + "," + metric + "," + value + ","
+			System.out.println(new Date().getTime()+"," + resourceId + "," + metric + "," + value + ","
 					+ timestamp);
 		}
 	}
 
+	public static void main(String[] args) {
+		System.out.println(new Date().getTime());
+	}
+	
 	private List<Map<String, String>> nullable(List<Map<String, String>> list) {
 		if (list != null)
 			return list;
