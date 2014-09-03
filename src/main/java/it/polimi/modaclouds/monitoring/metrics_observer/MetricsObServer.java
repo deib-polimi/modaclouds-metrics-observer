@@ -25,10 +25,10 @@ import org.restlet.routing.Template;
 
 public abstract class MetricsObServer extends Component {
 
-	private Class<? extends ConstructHandler> resultHandler;
+	private Class<? extends MonitoringDatumHandler> resultHandler;
 
 	public MetricsObServer(int listeningPort, String observerPath,
-			Class<? extends ConstructHandler> resultHandler) {
+			Class<? extends MonitoringDatumHandler> resultHandler) {
 		super();
 		getServers().add(Protocol.HTTP, listeningPort);
 		getClients().add(Protocol.FILE);

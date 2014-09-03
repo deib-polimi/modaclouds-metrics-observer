@@ -16,7 +16,7 @@
  */
 package it.polimi.modaclouds.monitoring.metrics_observer.examples;
 
-import it.polimi.modaclouds.monitoring.metrics_observer.ConstructHandler;
+import it.polimi.modaclouds.monitoring.metrics_observer.MonitoringDatumHandler;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,7 +27,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
-public class CVSResultHandler extends ConstructHandler {
+public class CVSResultHandler extends MonitoringDatumHandler {
 
 	@Override
 	public void getData(

@@ -33,12 +33,11 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 
-public abstract class ConstructHandler extends ServerResource {
+public abstract class MonitoringDatumHandler extends ServerResource {
 
-	private Logger logger = LoggerFactory.getLogger(ConstructHandler.class
+	private Logger logger = LoggerFactory.getLogger(MonitoringDatumHandler.class
 			.getName());
 	
-//	public abstract void getData(List<String> varNames, List<Map<String, Variable>> bindings);
 	public abstract void getData(Map<String,Map<String,List<Map<String,String>>>> monitoringDatum);
 
 	@Post
