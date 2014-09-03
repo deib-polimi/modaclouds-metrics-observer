@@ -21,9 +21,9 @@ import it.polimi.modaclouds.monitoring.metrics_observer.MetricsObServer;
 public class CVSObServer extends MetricsObServer {
 
 	public CVSObServer(int listeningPort) {
-		super(listeningPort, CVSResultHandler.class);
+		super(listeningPort, "/v1/results", CVSResultHandler.class);
 	}
-	
+
 	public static void main(String[] args) {
 		int port = (args.length > 0) ? Integer.parseInt(args[0]) : 8000;
 		System.out.println("Listening on port " + port);

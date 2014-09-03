@@ -27,25 +27,31 @@ public abstract class MetricsObServer extends Component {
 
 	private Class<? extends ConstructHandler> resultHandler;
 
-	public MetricsObServer(int listeningPort, Class<? extends ConstructHandler> resultHandler) {
+	public MetricsObServer(int listeningPort, String observerPath,
+			Class<? extends ConstructHandler> resultHandler) {
 		super();
 		getServers().add(Protocol.HTTP, listeningPort);
 		getClients().add(Protocol.FILE);
 		this.resultHandler = resultHandler;
-		getDefaultHost().attach("", new ObServerApp());
+		getDefaultHost().attach("", new ObServerApp(observerPath));
 	}
-	
+
 	public class ObServerApp extends Application {
+		private String observerPath;
+
+		public ObServerApp(String observerPath) {
+			this.observerPath = observerPath;
+		}
+
 		@Override
 		public Restlet createInboundRoot() {
 			Router router = new Router(getContext());
 			router.setDefaultMatchingMode(Template.MODE_EQUALS);
 
-			router.attach("/v1/results", resultHandler);
+			router.attach(observerPath, resultHandler);
 
 			return router;
 		}
 	}
-	
-	
+
 }
