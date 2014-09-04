@@ -51,7 +51,7 @@ public abstract class MetricsObServer extends Component {
 			Router router = new Router(getContext());
 			router.setDefaultMatchingMode(Template.MODE_EQUALS);
 
-			logger.info("Attaching handlare to path {}", observerPath);
+			logger.debug("Attaching handlare to path {}", observerPath);
 			router.attach(observerPath, resultHandler);
 
 			return router;

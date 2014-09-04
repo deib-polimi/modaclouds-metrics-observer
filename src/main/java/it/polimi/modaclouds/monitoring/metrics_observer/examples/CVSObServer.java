@@ -16,9 +16,14 @@
  */
 package it.polimi.modaclouds.monitoring.metrics_observer.examples;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import it.polimi.modaclouds.monitoring.metrics_observer.MetricsObServer;
 
 public class CVSObServer extends MetricsObServer {
+	
+	private static final Logger logger = LoggerFactory.getLogger(CVSObServer.class);
 
 	public CVSObServer(int listeningPort) {
 		super(listeningPort, "/v1/results", CVSResultHandler.class);
@@ -26,7 +31,7 @@ public class CVSObServer extends MetricsObServer {
 
 	public static void main(String[] args) {
 		int port = (args.length > 0) ? Integer.parseInt(args[0]) : 8000;
-		System.out.println("Listening on port " + port);
+		logger.debug("Using port {}", port);
 		CVSObServer observer = new CVSObServer(port);
 		try {
 			observer.start();
