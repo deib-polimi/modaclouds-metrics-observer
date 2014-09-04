@@ -22,10 +22,13 @@ import org.restlet.Restlet;
 import org.restlet.data.Protocol;
 import org.restlet.routing.Router;
 import org.restlet.routing.Template;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class MetricsObServer extends Component {
 
 	private Class<? extends MonitoringDatumHandler> resultHandler;
+	private static final Logger logger = LoggerFactory.getLogger(MetricsObServer.class);
 
 	public MetricsObServer(int listeningPort, String observerPath,
 			Class<? extends MonitoringDatumHandler> resultHandler) {
@@ -48,6 +51,7 @@ public abstract class MetricsObServer extends Component {
 			Router router = new Router(getContext());
 			router.setDefaultMatchingMode(Template.MODE_EQUALS);
 
+			logger.info("Attaching handlare to path {}", observerPath);
 			router.attach(observerPath, resultHandler);
 
 			return router;

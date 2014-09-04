@@ -21,7 +21,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>it.polimi.modaclouds.monitoring</groupId>
 	<artifactId>metrics-observer</artifactId>
-	<version>2.0</version>
+	<version>2.0.1</version>
 	<packaging>jar</packaging>
 
 	<name>MODAClouds Metrics ObServer</name>
@@ -79,6 +79,11 @@
 			<version>2.1.2</version>
 		</dependency>
 		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.1.2</version>
+		</dependency>
+		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 			<version>2.2.3</version>
@@ -91,8 +96,8 @@
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
-			<version>1.7.6</version>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.7</version>
 		</dependency>
 	</dependencies>
 
