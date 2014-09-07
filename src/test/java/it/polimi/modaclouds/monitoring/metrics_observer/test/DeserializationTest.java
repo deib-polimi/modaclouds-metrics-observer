@@ -20,6 +20,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 import it.polimi.modaclouds.monitoring.dcfactory.ddaconnectors.RCSOntology;
+import it.polimi.modaclouds.monitoring.metrics_observer.JSONMonitoringDataParser;
 import it.polimi.modaclouds.monitoring.metrics_observer.MonitoringDatum;
 import it.polimi.modaclouds.monitoring.metrics_observer.MonitoringDatumHandler;
 
@@ -71,7 +72,7 @@ public class DeserializationTest {
 					assertEquals(monitoringDatum.getTimestamp(), "1409223851698");
 					assertEquals(monitoringDatum.getValue(), "0.4");
 				}
-			}.getData(MonitoringDatumHandler.jsonToMonitoringDatum(w.toString()));
+			}.getData(JSONMonitoringDataParser.jsonToMonitoringDatum(w.toString()));
 		} catch (IOException e) {
 			e.printStackTrace();
 			fail();

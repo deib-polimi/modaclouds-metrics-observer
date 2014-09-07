@@ -16,15 +16,7 @@
  */
 package it.polimi.modaclouds.monitoring.metrics_observer;
 
-import it.polimi.modaclouds.monitoring.dcfactory.ddaconnectors.RCSOntology;
-
-import java.io.IOException;
-import java.io.StringReader;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.restlet.data.MediaType;
 import org.restlet.data.Status;
@@ -35,8 +27,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
 
 public abstract class MonitoringDatumHandler extends ServerResource {
 
@@ -49,7 +39,7 @@ public abstract class MonitoringDatumHandler extends ServerResource {
 	@Post
 	public void getData(Representation entity) {
 		try {
-			getData(jsonToMonitoringData(entity));
+			getData(JSONMonitoringDataParser.fromJson(entity));
 			this.getResponse().setStatus(Status.SUCCESS_OK,
 					"Monitoring datum succesfully received");
 			this.getResponse().setEntity(
@@ -70,53 +60,7 @@ public abstract class MonitoringDatumHandler extends ServerResource {
 		}
 	}
 	
-	public static List<MonitoringDatum> jsonToMonitoringDatum(String json) throws IOException {
-		JsonReader reader = null;
-		reader = new JsonReader(new StringReader(json));
-		Type type = new TypeToken<Map<String, Map<String, List<Map<String, String>>>>>() {
-		}.getType();
-		Map<String, Map<String, List<Map<String, String>>>> jsonMonitoringData = gson
-				.fromJson(reader, type);
-		List<MonitoringDatum> monitoringData = new ArrayList<MonitoringDatum>();
-		if (jsonMonitoringData.isEmpty()) {
-			logger.warn("Empty monitoring data json object received");
-			return monitoringData;
-		}
-		for (Map<String, List<Map<String, String>>> jsonMonitoringDatum: jsonMonitoringData
-				.values()) {
-			MonitoringDatum datum = new MonitoringDatum();
-			datum.setMetric(nullable(
-				jsonMonitoringDatum.get(RCSOntology.metric.toString())).get(0)
-				.get("value"));
-			datum.setTimestamp(nullable(
-				jsonMonitoringDatum.get(RCSOntology.timestamp.toString())).get(0).get(
-				"value"));
-			datum
-				.setValue(nullable(jsonMonitoringDatum.get(RCSOntology.value.toString()))
-						.get(0).get("value"));
-			datum.setResourceId(nullable(
-				jsonMonitoringDatum.get(RCSOntology.resourceId.toString())).get(0).get(
-				"value"));
-			monitoringData.add(datum);
-		}
-		return monitoringData;
-	}
-
-	public static List<MonitoringDatum> jsonToMonitoringData(Representation json) throws IOException {
-		String jsonText = json.getText();
-		return jsonToMonitoringDatum(jsonText);
-	}
-
-	private static List<Map<String, String>> nullable(List<Map<String, String>> list) {
-		if (list != null)
-			return list;
-		else {
-			List<Map<String, String>> emptyValueList = new ArrayList<Map<String, String>>();
-			Map<String, String> emptyValueMap = new HashMap<String, String>();
-			emptyValueMap.put("value", "");
-			emptyValueList.add(emptyValueMap);
-			return emptyValueList;
-		}
-	}
+	
+	
 
 }
