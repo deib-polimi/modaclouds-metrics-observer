@@ -33,6 +33,7 @@ public class CVSObServer extends MetricsObServer {
 		int port = (args.length > 0) ? Integer.parseInt(args[0]) : 8000;
 		logger.debug("Using port {}", port);
 		CVSObServer observer = new CVSObServer(port);
+		System.out.println("ObserverTimestamp,ResourceId,Metric,Value,Timestamp");
 		try {
 			observer.start();
 		} catch (Exception e) {

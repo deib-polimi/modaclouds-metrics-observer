@@ -16,8 +16,13 @@
  */
 package it.polimi.modaclouds.monitoring.metrics_observer;
 
+import it.polimi.modaclouds.monitoring.dcfactory.ddaconnectors.RCSOntology;
+
+import java.io.IOException;
 import java.io.StringReader;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,34 +40,28 @@ import com.google.gson.stream.JsonReader;
 
 public abstract class MonitoringDatumHandler extends ServerResource {
 
-	private Logger logger = LoggerFactory.getLogger(MonitoringDatumHandler.class
-			.getName());
-	
-	public abstract void getData(Map<String,Map<String,List<Map<String,String>>>> monitoringDatum);
+	private static final Logger logger = LoggerFactory
+			.getLogger(MonitoringDatumHandler.class.getName());
+	private static Gson gson = new Gson();
+
+	public abstract void getData(List<MonitoringDatum> monitoringData);
 
 	@Post
 	public void getData(Representation entity) {
-		String results = null;
-		JsonReader reader = null;
-		Gson gson = new Gson();
 		try {
-			results = entity.getText();
-			reader = new JsonReader(new StringReader(results));
-			Type type = new TypeToken<Map<String,Map<String,List<Map<String,String>>>>>(){}.getType();
-			Map<String,Map<String,List<Map<String,String>>>> monitoringDatum = gson.fromJson(reader, type);
-			getData(monitoringDatum);
+			getData(jsonToMonitoringData(entity));
 			this.getResponse().setStatus(Status.SUCCESS_OK,
-					"Result succesfully received");
+					"Monitoring datum succesfully received");
 			this.getResponse().setEntity(
-					gson.toJson("Result succesfully received"),
+					gson.toJson("Monitoring datum succesfully received"),
 					MediaType.APPLICATION_JSON);
 
 		} catch (Exception e) {
-			logger.error("Error while receiving results: " + results, e);
+			logger.error("Error while receiving monitoring data", e);
 			this.getResponse().setStatus(Status.SERVER_ERROR_INTERNAL,
-					"Error while receiving data");
+					"Error while receiving monitoring data");
 			this.getResponse().setEntity(
-					gson.toJson("Error while receiving data"),
+					gson.toJson("Error while receiving monitoring data"),
 					MediaType.APPLICATION_JSON);
 		} finally {
 			this.getResponse().commit();
@@ -70,6 +69,54 @@ public abstract class MonitoringDatumHandler extends ServerResource {
 			this.release();
 		}
 	}
-
 	
+	public static List<MonitoringDatum> jsonToMonitoringDatum(String json) throws IOException {
+		JsonReader reader = null;
+		reader = new JsonReader(new StringReader(json));
+		Type type = new TypeToken<Map<String, Map<String, List<Map<String, String>>>>>() {
+		}.getType();
+		Map<String, Map<String, List<Map<String, String>>>> jsonMonitoringData = gson
+				.fromJson(reader, type);
+		List<MonitoringDatum> monitoringData = new ArrayList<MonitoringDatum>();
+		if (jsonMonitoringData.isEmpty()) {
+			logger.warn("Empty monitoring data json object received");
+			return monitoringData;
+		}
+		for (Map<String, List<Map<String, String>>> jsonMonitoringDatum: jsonMonitoringData
+				.values()) {
+			MonitoringDatum datum = new MonitoringDatum();
+			datum.setMetric(nullable(
+				jsonMonitoringDatum.get(RCSOntology.metric.toString())).get(0)
+				.get("value"));
+			datum.setTimestamp(nullable(
+				jsonMonitoringDatum.get(RCSOntology.timestamp.toString())).get(0).get(
+				"value"));
+			datum
+				.setValue(nullable(jsonMonitoringDatum.get(RCSOntology.value.toString()))
+						.get(0).get("value"));
+			datum.setResourceId(nullable(
+				jsonMonitoringDatum.get(RCSOntology.resourceId.toString())).get(0).get(
+				"value"));
+			monitoringData.add(datum);
+		}
+		return monitoringData;
+	}
+
+	public static List<MonitoringDatum> jsonToMonitoringData(Representation json) throws IOException {
+		String jsonText = json.getText();
+		return jsonToMonitoringDatum(jsonText);
+	}
+
+	private static List<Map<String, String>> nullable(List<Map<String, String>> list) {
+		if (list != null)
+			return list;
+		else {
+			List<Map<String, String>> emptyValueList = new ArrayList<Map<String, String>>();
+			Map<String, String> emptyValueMap = new HashMap<String, String>();
+			emptyValueMap.put("value", "");
+			emptyValueList.add(emptyValueMap);
+			return emptyValueList;
+		}
+	}
+
 }
