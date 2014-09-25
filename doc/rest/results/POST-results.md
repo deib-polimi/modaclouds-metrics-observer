@@ -18,10 +18,13 @@ None
 ## Data Parameters
 
 A monitoring datum in [json rdf serialization format](https://dvcs.w3.org/hg/rdf/raw-file/default/rdf-json/index.html) of the following rdf model (here in ttl format for simplicity):
+
+```
 [] <http://www.modaclouds.eu/rdfs/1.0/monitoringdata#metric> ?metric;
 <http://www.modaclouds.eu/rdfs/1.0/monitoringdata#timestamp> ?timestamp;
 <http://www.modaclouds.eu/rdfs/1.0/monitoringdata#value> ?value;
 <http://www.modaclouds.eu/rdfs/1.0/monitoringdata#resourceId> ?resourceId .
+```
 
 
 ***
