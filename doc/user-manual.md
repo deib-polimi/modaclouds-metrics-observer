@@ -43,31 +43,25 @@ Dependency:
 
 ## Usage
 
-* Create a result handler extending the ResultHandler class, and overriding method `getData` so to handle incoming data.
-* Create a metrics obServer extending the MetricsObServer class and passing to the super constructor the listening port and your result handler class.
+* Create a monitoring datum handler extending the MonitoringDatumHandler class, and overriding method `getData` so to handle incoming data.
+* Create a metrics obServer extending the MetricsObServer class and passing to the super constructor the listening port, the path and your monitoring datum handler class.
 
 ## Code Samples
 
 Result handler class example:
 
 ```java
-public class MyResultHandler extends ResultsHandler {
+public class CVSResultHandler extends MonitoringDatumHandler {
 
 	@Override
-	public void getData(List<String> varNames,
-			List<Map<String, Variable>> bindings) {
-		String value;
-		for (Map<String, Variable> m : bindings) {
-			String datum = "";
-			int last = varNames.size();
-			for (int i = 0; i < last; i++) {
-				Variable var = m.get(varNames.get(i));
-				if (var != null) {
-					value = var.getValue();
-					datum += value + (i == last - 1 ? "" : " ");
-				}
-			}
-			System.out.println(datum);
+	public void getData(List<MonitoringDatum> monitoringData) {
+		String observerTimestamp = Long.toString(new Date().getTime());
+		for (MonitoringDatum monitoringDatum : monitoringData) {
+			System.out.println(observerTimestamp + ","
+					+ monitoringDatum.getResourceId() + ","
+					+ monitoringDatum.getMetric() + ","
+					+ monitoringDatum.getValue() + ","
+					+ monitoringDatum.getTimestamp());
 		}
 	}
 
@@ -76,10 +70,9 @@ public class MyResultHandler extends ResultsHandler {
 
 Observer class example:
 ```java
-public class ExampleObServer extends MetricsObServer {
-
-	public ExampleObServer(int listeningPort) {
-		super(listeningPort, MyResultHandler.class);
+public class CVSObServer extends MetricsObServer {
+	public CVSObServer(int listeningPort) {
+		super(listeningPort, "/v1/results", CVSResultHandler.class);
 	}
 	
 }
@@ -87,7 +80,7 @@ public class ExampleObServer extends MetricsObServer {
 
 Start the obServer
 ```java	
-ExampleObServer observer = new ExampleObServer(8123);
+CVSObServer observer = new CVSObServer(port);
 try {
 	observer.start();
 } catch (Exception e) {
