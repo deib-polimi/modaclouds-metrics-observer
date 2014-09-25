@@ -17,7 +17,12 @@ None
 
 ## Data Parameters
 
-A json object with a list of monitoring data with information about the monitored resource.
+A monitoring datum in [json rdf serialization format](https://dvcs.w3.org/hg/rdf/raw-file/default/rdf-json/index.html) of the following rdf model (here in ttl format for simplicity):
+[] <http://www.modaclouds.eu/rdfs/1.0/monitoringdata#metric> ?metric;
+<http://www.modaclouds.eu/rdfs/1.0/monitoringdata#timestamp> ?timestamp;
+<http://www.modaclouds.eu/rdfs/1.0/monitoringdata#value> ?value;
+<http://www.modaclouds.eu/rdfs/1.0/monitoringdata#resourceId> ?resourceId .
+
 
 ***
 
@@ -41,31 +46,31 @@ None
 	POST /v1/results
 	
 ``` json
-{
-  "head": {
-    "vars": [ "target" , "metric" , "value" , "timestamp" ]
-  } ,
-  "results": {
-    "bindings": [
-      {
-        "target": { "type": "uri" , "value": "http://www.modaclouds.eu/rdfs/1.0/monitoring/WinVM1" } ,
-        "metric": { "type": "uri" , "value": "WinVMCPUUtilization" } ,
-        "value": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "0.0994758059111746e0" } ,
-        "timestamp": { "datatype": "http://www.w3.org/2001/XMLSchema#integer" , "type": "typed-literal" , "value": "1404468767912" }
-      } ,
-      {
-        "target": { "type": "uri" , "value": "http://www.modaclouds.eu/rdfs/1.0/monitoring/WinVM1" } ,
-        "metric": { "type": "uri" , "value": "WinVMCPUUtilization" } ,
-        "value": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "0.0875758059111746e0" } ,
-        "timestamp": { "datatype": "http://www.w3.org/2001/XMLSchema#integer" , "type": "typed-literal" , "value": "1404468769212" }
-      } ,
-      {
-        "target": { "type": "uri" , "value": "http://www.modaclouds.eu/rdfs/1.0/monitoring/WinVM1" } ,
-        "metric": { "type": "uri" , "value": "WinVMCPUUtilization" } ,
-        "value": { "datatype": "http://www.w3.org/2001/XMLSchema#double" , "type": "typed-literal" , "value": "0.0775758059111746e0" } ,
-        "timestamp": { "datatype": "http://www.w3.org/2001/XMLSchema#integer" , "type": "typed-literal" , "value": "1404468772212" }
-      }
-    ]
+{ 
+  "a.unique.id.for.the.datum" : { 
+    "http://www.modaclouds.eu/rdfs/1.0/monitoringdata#metric" : [ { 
+      "type" : "literal" ,
+      "value" : "FrontendCPUUtilization"
+    }
+     ] ,
+    "http://www.modaclouds.eu/rdfs/1.0/monitoringdata#timestamp" : [ { 
+      "type" : "literal" ,
+      "value" : "1409223851698" ,
+      "datatype" : "http://www.w3.org/2001/XMLSchema#integer"
+    }
+     ] ,
+    "http://www.modaclouds.eu/rdfs/1.0/monitoringdata#value" : [ { 
+      "type" : "literal" ,
+      "value" : "0.11416644992590952e0" ,
+      "datatype" : "http://www.w3.org/2001/XMLSchema#double"
+    }
+     ] ,
+    "http://www.modaclouds.eu/rdfs/1.0/monitoringdata#resourceId" : [ { 
+      "type" : "literal" ,
+      "value" : "frontend1" ,
+      "datatype" : "http://www.w3.org/2001/XMLSchema#string"
+    }
+     ]
   }
 }
 ```
