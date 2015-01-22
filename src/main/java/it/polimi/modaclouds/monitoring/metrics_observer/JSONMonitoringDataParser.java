@@ -16,7 +16,8 @@
  */
 package it.polimi.modaclouds.monitoring.metrics_observer;
 
-import it.polimi.modaclouds.monitoring.dcfactory.ddaconnectors.RCSOntology;
+import it.polimi.modaclouds.monitoring.dcfactory.DCVocabulary;
+import it.polimi.modaclouds.monitoring.dcfactory.wrappers.DDAOntology;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -68,16 +69,16 @@ public class JSONMonitoringDataParser {
 				.values()) {
 			MonitoringDatum datum = new MonitoringDatum();
 			datum.setMetric(nullable(
-				jsonMonitoringDatum.get(RCSOntology.metric.toString())).get(0)
+				jsonMonitoringDatum.get(DDAOntology.metric.toString())).get(0)
 				.get("value"));
 			datum.setTimestamp(nullable(
-				jsonMonitoringDatum.get(RCSOntology.timestamp.toString())).get(0).get(
+				jsonMonitoringDatum.get(DDAOntology.timestamp.toString())).get(0).get(
 				"value"));
 			datum
-				.setValue(nullable(jsonMonitoringDatum.get(RCSOntology.value.toString()))
+				.setValue(nullable(jsonMonitoringDatum.get(DDAOntology.value.toString()))
 						.get(0).get("value"));
 			datum.setResourceId(nullable(
-				jsonMonitoringDatum.get(RCSOntology.resourceId.toString())).get(0).get(
+				jsonMonitoringDatum.get(DDAOntology.resourceId.toString())).get(0).get(
 				"value"));
 			monitoringData.add(datum);
 		}

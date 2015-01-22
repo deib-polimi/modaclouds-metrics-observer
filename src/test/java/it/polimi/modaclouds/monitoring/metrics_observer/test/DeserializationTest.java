@@ -19,7 +19,7 @@ package it.polimi.modaclouds.monitoring.metrics_observer.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
-import it.polimi.modaclouds.monitoring.dcfactory.ddaconnectors.RCSOntology;
+import it.polimi.modaclouds.monitoring.dcfactory.wrappers.DDAOntology;
 import it.polimi.modaclouds.monitoring.metrics_observer.JSONMonitoringDataParser;
 import it.polimi.modaclouds.monitoring.metrics_observer.MonitoringDatum;
 import it.polimi.modaclouds.monitoring.metrics_observer.MonitoringDatumHandler;
@@ -40,23 +40,23 @@ public class DeserializationTest {
 
 	@Test
 	public void test() {
-		String monDatumInstanceURI = RCSOntology.MonitoringDatum + "#"
+		String monDatumInstanceURI = DDAOntology.MonitoringDatum + "#"
 				+ UUID.randomUUID().toString();
 		Model m = ModelFactory.createDefaultModel();
 		m.createResource(monDatumInstanceURI)
-				.addProperty(RDF.type, RCSOntology.MonitoringDatum)
+				.addProperty(RDF.type, DDAOntology.MonitoringDatum)
 				.addProperty(
-						RCSOntology.metric,
+						DDAOntology.metric,
 						m.createTypedLiteral("cpuutilization",
 								XSDDatatype.XSDstring))
 				.addProperty(
-						RCSOntology.timestamp,
+						DDAOntology.timestamp,
 						m.createTypedLiteral("1409223851698",
 								XSDDatatype.XSDstring))
-				.addProperty(RCSOntology.value,
+				.addProperty(DDAOntology.value,
 						m.createTypedLiteral("0.4", XSDDatatype.XSDdouble))
 				.addProperty(
-						RCSOntology.resourceId,
+						DDAOntology.resourceId,
 						m.createTypedLiteral("exampleResource",
 								XSDDatatype.XSDstring));
 		StringWriter w = new StringWriter();

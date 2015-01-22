@@ -13,3 +13,8 @@ to better understand the role of this component in the MODAClouds Monitoring Pla
 ## Documentation
 
 Take a look at the [documentation table of contents](doc/TOC.md).
+
+## Change List:
+
+v3.0.1:
+* updated to [data-collector-factory 0.3](https://github.com/deib-polimi/modaclouds-data-collector-factory/releases/tag/v0.3)

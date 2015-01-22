@@ -21,7 +21,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>it.polimi.modaclouds.monitoring</groupId>
 	<artifactId>metrics-observer</artifactId>
-	<version>3.0</version>
+	<version>3.0.1</version>
 	<packaging>jar</packaging>
 
 	<name>MODAClouds Metrics ObServer</name>
@@ -102,7 +102,7 @@
 		<dependency>
 			<groupId>it.polimi.modaclouds.monitoring</groupId>
 			<artifactId>data-collector-factory</artifactId>
-			<version>0.2.2</version>
+			<version>0.3</version>
 		</dependency>
 	</dependencies>
 
