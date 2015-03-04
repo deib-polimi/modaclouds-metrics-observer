@@ -16,5 +16,8 @@ Take a look at the [documentation table of contents](doc/TOC.md).
 
 ## Change List:
 
+v3.0.2:
+* updated to [data-collector-factory 0.3.2](https://github.com/deib-polimi/modaclouds-data-collector-factory/releases/tag/v0.3.2)
+
 v3.0.1:
 * updated to [data-collector-factory 0.3](https://github.com/deib-polimi/modaclouds-data-collector-factory/releases/tag/v0.3)
