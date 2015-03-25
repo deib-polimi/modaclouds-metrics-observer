@@ -16,22 +16,16 @@
  */
 package it.polimi.modaclouds.monitoring.metrics_observer.examples;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import it.polimi.modaclouds.monitoring.metrics_observer.MetricsObServer;
 
 public class CSVObServer extends MetricsObServer {
 	
-	private static final Logger logger = LoggerFactory.getLogger(CSVObServer.class);
-
 	public CSVObServer(int listeningPort) {
 		super(listeningPort, "/v1/results", CSVResultHandler.class);
 	}
 
 	public static void main(String[] args) {
 		int port = (args.length > 0) ? Integer.parseInt(args[0]) : 8000;
-		logger.debug("Using port {}", port);
 		CSVObServer observer = new CSVObServer(port);
 		System.out.println("ObserverTimestamp,ResourceId,Metric,Value,Timestamp");
 		try {
