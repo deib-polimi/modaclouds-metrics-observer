@@ -22,7 +22,7 @@ import it.polimi.modaclouds.monitoring.metrics_observer.MonitoringDatumHandler;
 import java.util.Date;
 import java.util.List;
 
-public class CVSResultHandler extends MonitoringDatumHandler {
+public class CSVResultHandler extends MonitoringDatumHandler {
 
 	@Override
 	public void getData(List<MonitoringDatum> monitoringData) {
