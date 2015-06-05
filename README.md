@@ -1,6 +1,9 @@
 The MODAClouds Metrics ObServer
 =======================
 
+> The metrics observer library is not maintened anymore since the concept of observer for Tower 4Clouds was extended to allow multiple kind of serialization formats and multiple protocols, have a look at the new [Tower 4Clouds documentation](https://github.com/deib-polimi/tower4clouds) for details.
+------
+
 In the context of MODAClouds European project (www.modaclouds.eu), Politecnico was
 one of the partners involved in the development of the Monitoring Platform.
 
